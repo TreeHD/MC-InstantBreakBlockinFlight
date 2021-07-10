@@ -53,6 +53,7 @@ public class InstantBreakBlockinFlightUtil {
         if (resPlug != null) { //Check Residence is useable
             Location loc = p.getLocation();
             ClaimedResidence res = Residence.getInstance().getResidenceManager().getByLoc(loc);
+            
             if(res!=null){
                 return true;
 
