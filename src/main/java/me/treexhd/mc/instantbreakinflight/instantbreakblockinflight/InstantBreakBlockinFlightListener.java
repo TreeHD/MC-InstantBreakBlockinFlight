@@ -1,5 +1,6 @@
 package me.treexhd.mc.instantbreakinflight.instantbreakblockinflight;
 
+import com.bekvon.bukkit.residence.Residence;
 import net.kyori.adventure.text.Component;
 import org.bukkit.GameMode;
 import org.bukkit.World;
@@ -17,6 +18,8 @@ import static me.treexhd.mc.instantbreakinflight.instantbreakblockinflight.Insta
 import static org.bukkit.Bukkit.getServer;
 
 public class InstantBreakBlockinFlightListener implements Listener {
+
+    private Residence plugin;
 
     @EventHandler
     public void onBreakBlock(BlockDamageEvent event){
