@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.block.Block;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.Plugin;
 
@@ -31,18 +32,30 @@ public class InstantBreakBlockinFlightListener implements Listener {
     @EventHandler
     public void onFly(PlayerMoveEvent event){ //Disable Flying in Out of Residence
         Player p = event.getPlayer();
-        if(!InstantBreakBlockinFlightUtil.playercanFly(p) & p.getGameMode() == GameMode.SURVIVAL){
+        if(InstantBreakBlockinFlightUtil.playercanFly(p) & p.getGameMode() == GameMode.SURVIVAL){
+            p.setAllowFlight(true);
+
+        }else if(!InstantBreakBlockinFlightUtil.playercanFly(p) & !InstantBreakBlockinFlightUtil.isPlayeratHeightestBlock(p) & p.getGameMode() == GameMode.SURVIVAL){
             p.setAllowFlight(false);
             p.setFlying(false);
 
-        }else{
-            p.setAllowFlight(true);
-        }
-//        if(InstantBreakBlockinFlightUtil.isFly(p) & p.getGameMode() == GameMode.SURVIVAL){
 //            p.teleport(InstantBreakBlockinFlightUtil.getHighestBock(p,p.getWorld(),p.getLocation().getBlockX(),p.getLocation().getBlockZ()));
-//        }
+        }
+        else if(!InstantBreakBlockinFlightUtil.playercanFly(p) & p.getGameMode() == GameMode.SURVIVAL){
+
+
+        }
 
 
 
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageEvent event){
+        if(event.getEntity() instanceof Player & event.getCause() == EntityDamageEvent.DamageCause.FALL){
+            if(InstantBreakBlockinFlightUtil.playerinRes((Player) event.getEntity())){
+                event.setCancelled(true);
+            }
+        }
     }
 }
