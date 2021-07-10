@@ -7,6 +7,8 @@ import com.bekvon.bukkit.residence.protection.ClaimedResidence;
 import com.bekvon.bukkit.residence.protection.ResidencePermissions;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.block.Block;
 import org.bukkit.plugin.Plugin;
@@ -70,6 +72,18 @@ public class InstantBreakBlockinFlightUtil {
             }
         }
         return false;
+    }
+
+    public static Location getHighestBock(Player player,World world, int x, int z){
+        int i = player.getLocation().getBlockY();
+
+
+        while(i>0){
+            if(new Location(world, x, i, z).getBlock().getType()!=Material.AIR)
+                return new Location(world, x, i, z).add(0,1,0);
+            i--;
+        }
+        return new Location(world, x, 1, z);
     }
 
 }

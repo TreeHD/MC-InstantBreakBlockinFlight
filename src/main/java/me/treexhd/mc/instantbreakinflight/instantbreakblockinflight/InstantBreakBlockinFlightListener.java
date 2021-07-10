@@ -2,6 +2,7 @@ package me.treexhd.mc.instantbreakinflight.instantbreakblockinflight;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.GameMode;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import com.Zrips.CMI.*;
 import org.bukkit.event.EventHandler;
@@ -33,6 +34,15 @@ public class InstantBreakBlockinFlightListener implements Listener {
         if(!InstantBreakBlockinFlightUtil.playercanFly(p) & p.getGameMode() == GameMode.SURVIVAL){
             p.setAllowFlight(false);
             p.setFlying(false);
+
+        }else{
+            p.setAllowFlight(true);
         }
+//        if(InstantBreakBlockinFlightUtil.isFly(p) & p.getGameMode() == GameMode.SURVIVAL){
+//            p.teleport(InstantBreakBlockinFlightUtil.getHighestBock(p,p.getWorld(),p.getLocation().getBlockX(),p.getLocation().getBlockZ()));
+//        }
+
+
+
     }
 }
