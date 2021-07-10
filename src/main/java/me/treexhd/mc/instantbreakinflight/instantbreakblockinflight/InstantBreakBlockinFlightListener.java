@@ -38,8 +38,8 @@ public class InstantBreakBlockinFlightListener implements Listener {
         }else if(!InstantBreakBlockinFlightUtil.playercanFly(p) & !InstantBreakBlockinFlightUtil.isPlayeratHeightestBlock(p) & p.getGameMode() == GameMode.SURVIVAL){
             p.setAllowFlight(false);
             p.setFlying(false);
-
-//            p.teleport(InstantBreakBlockinFlightUtil.getHighestBock(p,p.getWorld(),p.getLocation().getBlockX(),p.getLocation().getBlockZ()));
+//teleport
+            p.teleport(InstantBreakBlockinFlightUtil.getHighestBock(p,p.getWorld(),p.getLocation().getBlockX(),p.getLocation().getBlockZ()));
         }
         else if(!InstantBreakBlockinFlightUtil.playercanFly(p) & p.getGameMode() == GameMode.SURVIVAL){
 
