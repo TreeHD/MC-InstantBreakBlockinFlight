@@ -1,11 +1,20 @@
 package me.treexhd.mc.instantbreakinflight.instantbreakblockinflight;
 
+import com.bekvon.bukkit.residence.Residence;
+import com.bekvon.bukkit.residence.*;
+import com.bekvon.bukkit.residence.containers.Flags;
+import com.bekvon.bukkit.residence.protection.ClaimedResidence;
+import com.bekvon.bukkit.residence.protection.ResidencePermissions;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.block.Block;
+import org.bukkit.plugin.Plugin;
+
+import static org.bukkit.Bukkit.getServer;
 
 public class InstantBreakBlockinFlightUtil {
+
 
     public static boolean isFly(Player player){
         Player p = player.getPlayer();
@@ -18,4 +27,49 @@ public class InstantBreakBlockinFlightUtil {
     public static int blockHeight(Location location){
         return location.getBlockY();
     }
+
+    public static boolean blockinRes(Player p,Block b){
+        Plugin resPlug = getServer().getPluginManager().getPlugin("Residence");
+        if (resPlug != null) { //Check Residence is useable
+            Location loc = b.getLocation();
+            ClaimedResidence res = Residence.getInstance().getResidenceManager().getByLoc(loc);
+            if(res!=null){
+                ResidencePermissions perms = res.getPermissions();
+                boolean hasPermission = perms.playerHas(p.getName(), "build", true);
+
+                if(hasPermission){
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
+    public static boolean playerinRes(Player p){
+        Plugin resPlug = getServer().getPluginManager().getPlugin("Residence");
+        if (resPlug != null) { //Check Residence is useable
+            Location loc = p.getLocation();
+            ClaimedResidence res = Residence.getInstance().getResidenceManager().getByLoc(loc);
+            if(res!=null){
+                return true;
+
+            }
+        }
+        return false;
+    }
+
+    public static boolean playercanFly(Player p){
+        if(InstantBreakBlockinFlightUtil.playerinRes(p)){
+            Location loc = p.getLocation();
+            ClaimedResidence res = Residence.getInstance().getResidenceManager().getByLoc(loc);
+            ResidencePermissions perms = res.getPermissions();
+            boolean hasPermission = perms.playerHas(p.getName(), "fly", true);
+            if(hasPermission){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

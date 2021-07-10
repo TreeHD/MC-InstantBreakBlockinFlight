@@ -4,4 +4,4 @@ main: me.treexhd.mc.instantbreakinflight.instantbreakblockinflight.InstantBreakB
 api-version: 1.16
 authors: [ TreexHD ]
 website: www.treexhd.me
-permissions:
+softdepend: [Residence]

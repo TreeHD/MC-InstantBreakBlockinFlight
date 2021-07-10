@@ -71,5 +71,19 @@
             <version>1.17-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.zrips.residence</groupId>
+            <artifactId>Residence</artifactId>
+            <version>5.0.0.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/Residence5.0.0.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.zrips.cmi</groupId>
+            <artifactId>CMI</artifactId>
+            <version>5.0.0.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/CMIAPI8.7.8.2.jar</systemPath>
+        </dependency>
     </dependencies>
 </project>
