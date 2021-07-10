@@ -74,16 +74,8 @@ public class InstantBreakBlockinFlightUtil {
         return false;
     }
 
-    public static boolean isPlayeratHeightestBlock(Player player){
-        int i = player.getLocation().getBlockY();
-        Location loc = getHighestBock(player,player.getWorld(),player.getLocation().getBlockX(),player.getLocation().getBlockZ());
 
-        if(i-4>loc.getBlockY()){
-            return false;
-        }
-        return true;
-    }
-
+    //TODO Search the "highest block" from player Y coordinate.
     public static Location getHighestBock(Player player,World world, int x, int z){
         int i = player.getLocation().getBlockY();
 
@@ -94,6 +86,16 @@ public class InstantBreakBlockinFlightUtil {
             i--;
         }
         return new Location(world, x, 1+1, z,player.getLocation().getYaw(),player.getLocation().getPitch());
+    }
+
+    public static boolean isPlayeratHeightestBlock(Player player){
+        int i = player.getLocation().getBlockY();
+        Location loc = getHighestBock(player,player.getWorld(),player.getLocation().getBlockX(),player.getLocation().getBlockZ());
+
+        if(i-4>loc.getBlockY()){
+            return false;
+        }
+        return true;
     }
 
     public static boolean disableDrop(Player player){
