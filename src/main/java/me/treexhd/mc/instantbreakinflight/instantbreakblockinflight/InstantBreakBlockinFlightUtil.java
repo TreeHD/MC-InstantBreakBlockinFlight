@@ -18,28 +18,28 @@ import static org.bukkit.Bukkit.getServer;
 public class InstantBreakBlockinFlightUtil {
 
 
-    public static boolean isFly(Player player){
+    public static boolean isFly(Player player) {
         Player p = player.getPlayer();
-        if(p.isFlying() & p.getGameMode() == GameMode.SURVIVAL){
+        if (p.isFlying() & p.getGameMode() == GameMode.SURVIVAL) {
             return true;
         }
         return false;
     }
 
-    public static int blockHeight(Location location){
+    public static int blockHeight(Location location) {
         return location.getBlockY();
     }
 
-    public static boolean blockinRes(Player p,Block b){
+    public static boolean blockinRes(Player p, Block b) {
         Plugin resPlug = getServer().getPluginManager().getPlugin("Residence");
         if (resPlug != null) { //Check Residence is useable
             Location loc = b.getLocation();
             ClaimedResidence res = Residence.getInstance().getResidenceManager().getByLoc(loc);
-            if(res!=null){
+            if (res != null) {
                 ResidencePermissions perms = res.getPermissions();
                 boolean hasPermission = perms.playerHas(p.getName(), "build", true);
 
-                if(hasPermission){
+                if (hasPermission) {
                     return true;
                 }
             }
@@ -48,13 +48,13 @@ public class InstantBreakBlockinFlightUtil {
         return false;
     }
 
-    public static boolean playerinRes(Player p){
+    public static boolean playerinRes(Player p) {
         Plugin resPlug = getServer().getPluginManager().getPlugin("Residence");
         if (resPlug != null) { //Check Residence is useable
             Location loc = p.getLocation();
             ClaimedResidence res = Residence.getInstance().getResidenceManager().getByLoc(loc);
-            
-            if(res!=null){
+
+            if (res != null) {
                 return true;
 
             }
@@ -62,13 +62,13 @@ public class InstantBreakBlockinFlightUtil {
         return false;
     }
 
-    public static boolean playercanFly(Player p){
-        if(InstantBreakBlockinFlightUtil.playerinRes(p)){
+    public static boolean playercanFly(Player p) {
+        if (InstantBreakBlockinFlightUtil.playerinRes(p)) {
             Location loc = p.getLocation();
             ClaimedResidence res = Residence.getInstance().getResidenceManager().getByLoc(loc);
             ResidencePermissions perms = res.getPermissions();
             boolean hasPermission = perms.playerHas(p.getName(), "fly", true);
-            if(hasPermission){
+            if (hasPermission) {
                 return true;
             }
         }
@@ -76,32 +76,32 @@ public class InstantBreakBlockinFlightUtil {
     }
 
 
-    //TODO Search the "highest block" from player Y coordinate.
-    public static Location getHighestBock(Player player,World world, int x, int z){
+    public static Location getHighestBock(Player player, World world, int x, int z) {
         int i = player.getLocation().getBlockY();
 
 
-        while(i>0){
-            if(new Location(world, x, i, z).getBlock().getType()!=Material.AIR)
-                return new Location(world, x, i+1, z).add(0,1,0);
+        while (i > 0) {
+            if (new Location(world, x, i, z).getBlock().getType() != Material.AIR)
+                return new Location(world, x, i + 1, z).add(0, 1, 0);
             i--;
         }
-        return new Location(world, x, 1+1, z,player.getLocation().getYaw(),player.getLocation().getPitch());
+        return new Location(world, x, 1 + 1, z, player.getLocation().getYaw(), player.getLocation().getPitch());
     }
 
-    public static boolean isPlayeratHeightestBlock(Player player){
+    public static boolean isPlayeratHeightestBlock(Player player) {
         int i = player.getLocation().getBlockY();
-        Location loc = getHighestBock(player,player.getWorld(),player.getLocation().getBlockX(),player.getLocation().getBlockZ());
+        Location loc = getHighestBock(player, player.getWorld(), player.getLocation().getBlockX(), player.getLocation().getBlockZ());
 
-        if(i-4>loc.getBlockY()){
+        if (i - 4 > loc.getBlockY()) {
             return false;
         }
         return true;
     }
 
-    public static boolean disableDrop(Player player){
+    public static boolean disableDrop(Player player) {
 
         return false;
     }
+
 
 }

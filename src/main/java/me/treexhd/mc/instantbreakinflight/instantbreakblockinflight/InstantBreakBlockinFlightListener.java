@@ -42,7 +42,7 @@ public class InstantBreakBlockinFlightListener implements Listener {
             p.setAllowFlight(false);
             p.setFlying(false);
 //teleport
-            p.teleport(InstantBreakBlockinFlightUtil.getHighestBock(p,p.getWorld(),p.getLocation().getBlockX(),p.getLocation().getBlockZ()));
+//            p.teleport(InstantBreakBlockinFlightUtil.getHighestBock(p,p.getWorld(),p.getLocation().getBlockX(),p.getLocation().getBlockZ()));
         }
         else if(!InstantBreakBlockinFlightUtil.playercanFly(p) & p.getGameMode() == GameMode.SURVIVAL){
 
@@ -53,12 +53,13 @@ public class InstantBreakBlockinFlightListener implements Listener {
 
     }
 
-    @EventHandler
-    public void onDamage(EntityDamageEvent event){
-        if(event.getEntity() instanceof Player & event.getCause() == EntityDamageEvent.DamageCause.FALL){
-            if(InstantBreakBlockinFlightUtil.playerinRes((Player) event.getEntity())){
-                event.setCancelled(true);
-            }
-        }
-    }
+//TODO
+//    @EventHandler
+//    public void onDamage(EntityDamageEvent event){
+//        if(event.getEntity() instanceof Player & event.getCause() == EntityDamageEvent.DamageCause.FALL){
+//            if(InstantBreakBlockinFlightUtil.playerinRes((Player) event.getEntity())){
+//                event.setCancelled(true);
+//            }
+//        }
+//    }
 }
