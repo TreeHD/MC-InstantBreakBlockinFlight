@@ -83,25 +83,21 @@ public class InstantBreakBlockinFlightUtil {
 
         while(i>0){
             if(new Location(world, x, i, z).getBlock().getType()!=Material.AIR)
-                return new Location(world, x, i+1, z).add(0,1,0);
+                return new Location(world, x, i, z).add(0,1,0);
             i--;
         }
-        return new Location(world, x, 1+1, z,player.getLocation().getYaw(),player.getLocation().getPitch());
+        return new Location(world, x, 1, z);
     }
 
     public static boolean isPlayeratHeightestBlock(Player player){
         int i = player.getLocation().getBlockY();
         Location loc = getHighestBock(player,player.getWorld(),player.getLocation().getBlockX(),player.getLocation().getBlockZ());
 
-        if(i-4>loc.getBlockY()){
+        if(i>loc.getBlockY()){
             return false;
         }
         return true;
     }
 
-    public static boolean disableDrop(Player player){
-
-        return false;
-    }
 
 }
