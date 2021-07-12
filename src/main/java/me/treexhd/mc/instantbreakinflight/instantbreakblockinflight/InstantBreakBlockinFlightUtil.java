@@ -1,16 +1,14 @@
 package me.treexhd.mc.instantbreakinflight.instantbreakblockinflight;
 
 import com.bekvon.bukkit.residence.Residence;
-import com.bekvon.bukkit.residence.*;
-import com.bekvon.bukkit.residence.containers.Flags;
 import com.bekvon.bukkit.residence.protection.ClaimedResidence;
 import com.bekvon.bukkit.residence.protection.ResidencePermissions;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import static org.bukkit.Bukkit.getServer;
