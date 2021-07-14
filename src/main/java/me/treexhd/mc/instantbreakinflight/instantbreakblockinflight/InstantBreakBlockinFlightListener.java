@@ -1,6 +1,5 @@
 package me.treexhd.mc.instantbreakinflight.instantbreakblockinflight;
 
-import com.bekvon.bukkit.residence.Residence;
 import org.bukkit.GameMode;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -12,13 +11,12 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 public class InstantBreakBlockinFlightListener implements Listener {
 
-    private Residence plugin;
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onBreakBlock(BlockDamageEvent event) {
         Player p = event.getPlayer();
         Block b = event.getBlock();
-        if (InstantBreakBlockinFlightUtil.isFly(p) & InstantBreakBlockinFlightUtil.blockinRes(p, b) & InstantBreakBlockinFlightUtil.blockHeight(b.getLocation()) > 60 & p.getAllowFlight()) {
+        if (InstantBreakBlockinFlightUtil.isFly(p) & InstantBreakBlockinFlightUtil.blockinClaim(p, b) & InstantBreakBlockinFlightUtil.blockHeight(b.getLocation()) > 60 & p.getAllowFlight()) {
 
 
             event.setInstaBreak(true);
@@ -32,10 +30,12 @@ public class InstantBreakBlockinFlightListener implements Listener {
         if (!InstantBreakBlockinFlightUtil.playercanFly(p) & p.getGameMode() == GameMode.SURVIVAL) {
             p.setAllowFlight(false);
             p.setFlying(false);
-
+        }else if(InstantBreakBlockinFlightUtil.playercanFly(p)){
+            p.setAllowFlight(true);
         }
 
-
+    }
+}
 //        if(InstantBreakBlockinFlightUtil.playercanFly(p) & p.getGameMode() == GameMode.SURVIVAL){
 //            p.setAllowFlight(true);
 //
@@ -51,7 +51,6 @@ public class InstantBreakBlockinFlightListener implements Listener {
 //        }
 
 
-    }
 
 //    @EventHandler
 //    public void onDamage(EntityDamageEvent event){
@@ -86,4 +85,3 @@ public class InstantBreakBlockinFlightListener implements Listener {
 
 
 
-}

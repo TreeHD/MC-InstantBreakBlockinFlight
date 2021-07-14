@@ -1,8 +1,6 @@
 package me.treexhd.mc.instantbreakinflight.instantbreakblockinflight;
 
-import com.bekvon.bukkit.residence.Residence;
-import com.bekvon.bukkit.residence.protection.ClaimedResidence;
-import com.bekvon.bukkit.residence.protection.ResidencePermissions;
+import me.ryanhamshire.GriefPrevention.*;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -28,47 +26,52 @@ public class InstantBreakBlockinFlightUtil {
         return location.getBlockY();
     }
 
-    public static boolean blockinRes(Player p,Block b){
-        Plugin resPlug = getServer().getPluginManager().getPlugin("Residence");
-        if (resPlug != null) { //Check Residence is useable
-            Location loc = b.getLocation();
-            ClaimedResidence res = Residence.getInstance().getResidenceManager().getByLoc(loc);
-            if(res!=null){
-                ResidencePermissions perms = res.getPermissions();
-                boolean hasPermission = perms.playerHas(p.getName(), "build", true);
+    public static boolean blockinClaim(Player p,Block b){
+        Plugin ClaimPlug = getServer().getPluginManager().getPlugin("GriefPrevention");
 
-                if(hasPermission){
-                    return true;
-                }
+        if (ClaimPlug != null) { //Check GriefPrevention is usable
+            boolean ignoreHeight = true;
+            Location loc = b.getLocation();
+
+            Claim claim= GriefPrevention.instance.dataStore.getClaimAt(b.getLocation(), true, null);
+            if(claim!=null){
+                return true;
             }
 
         }
         return false;
     }
 
-    public static boolean playerinRes(Player p){
-        Plugin resPlug = getServer().getPluginManager().getPlugin("Residence");
-        if (resPlug != null) { //Check Residence is useable
-            Location loc = p.getLocation();
-            ClaimedResidence res = Residence.getInstance().getResidenceManager().getByLoc(loc);
-            
-            if(res!=null){
-                return true;
+    public static boolean playerinClaim(Player p){
+        Plugin ClaimPlug = getServer().getPluginManager().getPlugin("GriefPrevention");
 
+        if (ClaimPlug != null) { //Check GriefPrevention is usable
+            boolean ignoreHeight = true;
+            Location loc = p.getLocation();
+
+            Claim claim= GriefPrevention.instance.dataStore.getClaimAt(p.getLocation(), true, null);
+            if(claim!=null){
+                return true;
             }
+
         }
         return false;
     }
 
     public static boolean playercanFly(Player p){
-        if(InstantBreakBlockinFlightUtil.playerinRes(p)){
+        if(InstantBreakBlockinFlightUtil.playerinClaim(p)){
             Location loc = p.getLocation();
-            ClaimedResidence res = Residence.getInstance().getResidenceManager().getByLoc(loc);
-            ResidencePermissions perms = res.getPermissions();
-            boolean hasPermission = perms.playerHas(p.getName(), "fly", true);
-            if(hasPermission){
-                return true;
+            Claim claim= GriefPrevention.instance.dataStore.getClaimAt(loc, true, null);
+
+            if(claim!=null){
+                String result = claim.allowAccess(p);
+                if(result==null){
+                    return true;
+                }
+
+
             }
+
         }
         return false;
     }
