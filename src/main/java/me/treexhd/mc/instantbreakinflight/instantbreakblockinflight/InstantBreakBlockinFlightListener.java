@@ -32,7 +32,10 @@ public class InstantBreakBlockinFlightListener implements Listener {
         if (!InstantBreakBlockinFlightUtil.playercanFly(p) & p.getGameMode() == GameMode.SURVIVAL) {
             p.setAllowFlight(false);
             p.setFlying(false);
+
         }
+
+
 //        if(InstantBreakBlockinFlightUtil.playercanFly(p) & p.getGameMode() == GameMode.SURVIVAL){
 //            p.setAllowFlight(true);
 //
