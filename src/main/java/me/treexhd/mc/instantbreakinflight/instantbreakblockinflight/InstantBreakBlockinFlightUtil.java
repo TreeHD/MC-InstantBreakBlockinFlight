@@ -1,6 +1,7 @@
 package me.treexhd.mc.instantbreakinflight.instantbreakblockinflight;
 
-import me.ryanhamshire.GriefPrevention.*;
+import me.ryanhamshire.GriefPrevention.Claim;
+import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,10 +14,18 @@ import static org.bukkit.Bukkit.getServer;
 
 public class InstantBreakBlockinFlightUtil {
 
+    public static boolean plugIsUsable(String plugName){
+        Plugin pl = getServer().getPluginManager().getPlugin(plugName);
+        if(pl != null){
+            return true;
+        }
+        return false;
+    }
 
     public static boolean isFly(Player player){
         Player p = player.getPlayer();
         if(p.isFlying() & p.getGameMode() == GameMode.SURVIVAL){
+
             return true;
         }
         return false;
@@ -27,8 +36,7 @@ public class InstantBreakBlockinFlightUtil {
     }
 
     public static boolean blockinClaim(Player p,Block b){
-        Plugin ClaimPlug = getServer().getPluginManager().getPlugin("GriefPrevention");
-
+        Boolean ClaimPlug = plugIsUsable("GriefPrevention");
         if (ClaimPlug != null) { //Check GriefPrevention is usable
             boolean ignoreHeight = true;
             Location loc = b.getLocation();
@@ -43,7 +51,7 @@ public class InstantBreakBlockinFlightUtil {
     }
 
     public static boolean playerinClaim(Player p){
-        Plugin ClaimPlug = getServer().getPluginManager().getPlugin("GriefPrevention");
+        Boolean ClaimPlug = plugIsUsable("GriefPrevention");
 
         if (ClaimPlug != null) { //Check GriefPrevention is usable
             boolean ignoreHeight = true;
@@ -57,6 +65,53 @@ public class InstantBreakBlockinFlightUtil {
         }
         return false;
     }
+
+    public static boolean isLocationinClaim(Location loc){
+        Boolean ClaimPlug = plugIsUsable("GriefPrevention");
+
+        if (ClaimPlug != null) { //Check GriefPrevention is usable
+            boolean ignoreHeight = true;
+
+            Claim claim= GriefPrevention.instance.dataStore.getClaimAt(loc, true, null);
+            if(claim!=null){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public static boolean isLeaveClaim(Location locFrom,Location locTo){
+        Boolean ClaimPlug = plugIsUsable("GriefPrevention");
+        if (ClaimPlug != null) { //Check GriefPrevention is usable
+            boolean ignoreHeight = true;
+
+            Claim claimFrom= GriefPrevention.instance.dataStore.getClaimAt(locFrom, true, null);
+            Claim claimTo= GriefPrevention.instance.dataStore.getClaimAt(locTo, true, null);
+            if(claimFrom!=null & claimTo==null){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public static boolean isEnterClaim(Location locFrom,Location locTo){
+        Boolean ClaimPlug = plugIsUsable("GriefPrevention");
+        if (ClaimPlug != null) { //Check GriefPrevention is usable
+            boolean ignoreHeight = true;
+
+            Claim claimFrom= GriefPrevention.instance.dataStore.getClaimAt(locFrom, true, null);
+            Claim claimTo= GriefPrevention.instance.dataStore.getClaimAt(locTo, true, null);
+
+            if(claimFrom==null & claimTo!=null){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
 
     public static boolean playercanFly(Player p){
         if(InstantBreakBlockinFlightUtil.playerinClaim(p)){
