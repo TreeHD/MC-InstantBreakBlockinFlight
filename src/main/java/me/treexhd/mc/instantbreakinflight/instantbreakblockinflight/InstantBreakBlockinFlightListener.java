@@ -34,7 +34,7 @@ public class InstantBreakBlockinFlightListener implements Listener {
 
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-    public void onMove(PlayerMoveEvent event) { //Disable Flying in Out of Residence
+    public void onMove(PlayerMoveEvent event) { //Disable Flying in Out of Claim
         Player p = event.getPlayer();
         Location nowLoc = p.getLocation();
 
@@ -46,6 +46,13 @@ public class InstantBreakBlockinFlightListener implements Listener {
 
         Location from = event.getFrom();
         Location to = event.getTo();
+
+        if(InstantBreakBlockinFlightUtil.playercanFly(p)){
+            p.setAllowFlight(true);
+            if(p.isFlying()){
+                p.addPotionEffect((new PotionEffect(PotionEffectType.NIGHT_VISION, 300, 1)));
+            }
+        }
 
         if(InstantBreakBlockinFlightUtil.isEnterClaim(from,to)){
             p.setAllowFlight(true);
